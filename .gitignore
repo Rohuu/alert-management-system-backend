@@ -7,3 +7,4 @@ out/
 !**/src/test/**/out/
 .gradle
 build
+HELP.md
