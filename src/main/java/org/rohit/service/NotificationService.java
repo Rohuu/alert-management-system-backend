@@ -28,7 +28,6 @@ public class NotificationService {
         }
         return false;
     }
-
     public void sendEmail(String email, String message) {
 
         LocalDateTime currentTime = LocalDateTime.now();
@@ -43,7 +42,6 @@ public class NotificationService {
             System.out.println("You can't send the email from " + email + ", please use another mail or try later");
         } else {
             System.out.println("Email sent successfully! " + message);
-
             notificationRepository.save(logToBeSaved);
         }
     }
