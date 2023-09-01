@@ -17,7 +17,7 @@ public class SecurityConfiguration{
     public UserDetailsService userDetailsService(){
         UserDetails user= User.builder().username("nunam")
                 .password(passwordEncoder().encode("nunam"))
-                .roles("admin")
+                .roles("USER")
                 .build();
         return new InMemoryUserDetailsManager(user);
     }
@@ -26,4 +26,5 @@ public class SecurityConfiguration{
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
 }
