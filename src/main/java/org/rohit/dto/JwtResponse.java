@@ -6,6 +6,9 @@ import lombok.*;
 @NoArgsConstructor
 @Getter@Setter@Builder
 public class JwtResponse {
-    private String jwtToken;
-    private String userName;
+    private String access_token;
+    private long expires_in;
+    private long refresh_expires_in;
+    private String refresh_token;
+    private String token_type;
 }
