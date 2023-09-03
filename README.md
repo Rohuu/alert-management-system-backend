@@ -24,7 +24,7 @@ Follow the steps below to install and run the project locally:
 
 ### Prerequisites
 
-- Java Development Kit (JDK) 11 or later
+- Java Development Kit (JDK) 17
 - PostgreSQL database
 - Gradle build tool (optional, as the project includes a Gradle wrapper)
 
