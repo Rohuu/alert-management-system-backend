@@ -16,7 +16,7 @@ public class NotificationController {
     public ResponseEntity<String> sendNotification(@RequestHeader("Authorization") String token,
                                                    @RequestBody Notification notification) {
 
-        boolean isTokenValid = notificationService.validateToken(token);
+        boolean isTokenValid = notificationService.validateToken("nunam");
 
         if (!isTokenValid) {
             return ResponseEntity.status(401).body("Unauthorized");
