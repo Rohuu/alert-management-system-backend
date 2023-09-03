@@ -1,47 +1,29 @@
 package org.rohit.controller;
 
-import org.rohit.dto.JwtRequest;
-import org.rohit.dto.JwtResponse;
-import org.rohit.security.JwtHelper;
-import org.rohit.service.AuthService;
+import org.rohit.service.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
-@RequestMapping("/api")
+@RestController
 public class AuthController {
-    @Autowired
-    private AuthService authService;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private static final Logger LOG = LoggerFactory.getLogger(AuthController.class);
 
-    @Autowired
-    private JwtHelper helper;
+    private final TokenService tokenService;
 
-    private final Logger logger = LoggerFactory.getLogger(AuthController.class);
-    @PostMapping("/auth")
-    public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest request) {
-        System.out.println("controller auth");
-        authService.doAuthenticate(request.getUsername(), request.getPassword());
+    public AuthController(TokenService tokenService) {
+        this.tokenService = tokenService;
+    }
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
-        String token = this.helper.generateToken(userDetails);
-
-        JwtResponse response = JwtResponse.builder()
-                .access_token(token)
-                .expires_in(1800)
-                .refresh_expires_in(1800)
-                .refresh_token("")
-                .token_type("Bearer")
-                .build();
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    @PostMapping("/token")
+    public String token(Authentication authentication) {
+        System.out.println("inside controller method");
+        LOG.debug("Token requested for user: '{}'", authentication.getName());
+        String token = tokenService.generateToken(authentication);
+        LOG.debug("Token granted: {}", token);
+        return token;
     }
 }
