@@ -1,6 +1,5 @@
 # Project Name: Alert Management System
 
-## Overview
 
 The Alert Management System is a Java backend project developed using the Spring Boot framework. This system provides two REST endpoints, namely Authentication and Notification, to manage alerts and send email notifications.
 
